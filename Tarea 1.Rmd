@@ -29,10 +29,10 @@ ggplot(gapminder,aes(x=lifeExp,y=year,colour=continent))+geom_point()+
 
 ```{r,echo=T}
 ggplot(gapminder,aes(x=lifeExp,y=year,colour=continent))+
-+   labs(x="Esperanza de vida", y="Año",title="Gráfico de dispersión: Esperanza de vida",caption=paste0(strwrap("Se aprecia un notorio aumento en la esperanza de vida y mediante regresion lineal se denotan los diferentes ritmos correspondientes a cada continente.", 100), sep="", collapse="\n"))+
-+   coord_cartesian(ylim=c((min(gapminder$year)-5),(max(gapminder$year)+5))) +
-+   geom_smooth(method = "lm",se=F,position="identity")+ 
-+   theme(legend.text = element_text(colour="gray20", size=9,face="italic"),plot.title = element_text(hjust = 0.5,colour="slateblue4",size=18,face="italic"),plot.caption=element_text(size=8, hjust=0, margin=margin(t=15)))
+  labs(x="Esperanza de vida", y="Año",title="Gráfico de dispersión: Esperanza de vida",caption=paste0(strwrap("Se aprecia un notorio aumento en la esperanza de vida y mediante regresion lineal se denotan los diferentes ritmos correspondientes a cada continente.", 100), sep="", collapse="\n"))+
+  coord_cartesian(ylim=c((min(gapminder$year)-5),(max(gapminder$year)+5))) +
+  geom_smooth(method = "lm",se=F,position="identity")+ 
+  theme(legend.text = element_text(colour="gray20", size=9,face="italic"),plot.title = element_text(hjust = 0.5,colour="slateblue4",size=18,face="italic"),plot.caption=element_text(size=8, hjust=0, margin=margin(t=15)))
 ```
 
 
@@ -40,4 +40,8 @@ Esto es consecuencia de que no definimos el gráfico de dispersión pero si orde
 
 ####Ejercicio 3 
 
+```{r, echo = FALSE}
+ggplot(gapminder, aes(gdpPercap, lifeExp, colour = continent)) +
+    geom_point() 
+```
 
