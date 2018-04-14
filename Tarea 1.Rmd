@@ -40,8 +40,8 @@ Esto es consecuencia de que no definimos el gráfico de dispersión pero si orde
 
 ####Ejercicio 3 
 
-```{r, echo = FALSE}
-ggplot(gapminder, aes(gdpPercap, lifeExp, colour = continent)) +
-    geom_point() 
+```{r, echo = TRUE}
+ggplot(gapminder, aes(x=gdpPercap, y= lifeExp, colour = continent,size=gdpPercap))+geom_point(size = 4.4)
 ```
+
 
