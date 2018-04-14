@@ -40,8 +40,10 @@ Esto es consecuencia de que no definimos el gráfico de dispersión pero si orde
 
 ####Ejercicio 3 
 
+Una visualización más limpia puede estar dada mediante el faceteado por continente. 
+
 ```{r, echo = TRUE}
-ggplot(gapminder, aes(x=gdpPercap, y= lifeExp, colour = continent,size=gdpPercap))+geom_point(size = 4.4)
+ ggplot(gapminder, aes(x=gdpPercap, y=lifeExp, colour = continent))+geom_point()+facet_wrap(~continent)+labs(x="PBI per cápita",y="Esperanza de vida en años", title="Gráfico de dispersión faceteado por continente.")+theme(plot.title = element_text(hjust = 0.5,colour="indianred4",size=18,face="italic"))
 ```
 
-
+Observamos 
