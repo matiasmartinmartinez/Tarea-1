@@ -9,7 +9,7 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r,echo=TRUE}
+```{r,echo=FALSE}
 library(tidyverse)
 library(gapminder)
 ```
@@ -67,9 +67,14 @@ head(arrange(filter(gapminder, year==1957),desc(gdpPercap)),4)
 library("plotly")
 ```
 ```{r,echo=TRUE}
-d=ggplot(data=gapminder,aes(x=lifeExp,y=pop,colour=continent,group=country))+geom_point(aes(frame=year))+labs(x="Esperanza de vida",y="Poblacíon",title="Gráfico de dispersíón: Esperanza de vida según población")
-ggplotly(d)
+d=ggplot(data=gapminder,aes(x=lifeExp,y=pop,colour=continent,group=country))+geom_point(aes(frame=year),size=2.1)+labs(x="Esperanza de vida",y="Poblacíon",title="Gráfico de dispersíón: Esperanza de vida según población")+theme(plot.title = element_text(hjust = 0.5,colour="rosybrown4",size=15,face="italic"))
+ggplotly(d)%>% animation_opts( 800, redraw = FALSE)
 ```
 
+Se aprecia claramente la tendencia al crecimiento tanto de la población como de la epseranza de vida, sin embargo, para una visualización más clara obviaremos los casos atipicos(China e India)
 
+```{r,echo =TRUE}
+d=ggplot(data=filter(gapminder,country!="India" & country!="China"),aes(x=lifeExp,y=pop,colour=continent,group=country))+geom_point(aes(frame=year),size=2.1)+labs(x="Esperanza de vida",y="Poblacíon",title="Gráfico de dispersíón: Esperanza de vida según población")+theme(plot.title = element_text(hjust = 0.5,colour="palegreen4",size=15,face="italic"))
+ggplotly(d)
+```
 
