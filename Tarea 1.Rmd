@@ -52,6 +52,6 @@ Se observa la
 
 
 ```{r}
-ggplot(data= gapminder, aes(x=year,y=gdpPercap, group=country))+geom_line(size = .3) + theme_bw() +facet_wrap(~continent)+scale_color_brewer(palette="Set3")
+ggplot(data= gapminder, aes(x=year,y=gdpPercap, group=country))+geom_line(size = .3) + theme_bw() +facet_wrap(~continent)+labs(x="Año",y="PBI per cápita", title="Gráfico de lineas: PBI per cápita en el tiempo")+scale_color_brewer(palette="Set3")
 ```
 
