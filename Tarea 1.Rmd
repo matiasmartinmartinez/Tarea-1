@@ -46,4 +46,12 @@ Una visualización más limpia puede estar dada mediante el faceteado por contin
  ggplot(gapminder, aes(x=gdpPercap, y=lifeExp, colour = continent))+geom_point()+facet_wrap(~continent)+labs(x="PBI per cápita",y="Esperanza de vida en años", title="Gráfico de dispersión faceteado por continente.")+theme(plot.title = element_text(hjust = 0.5,colour="indianred4",size=18,face="italic"))
 ```
 
-Observamos 
+Se observa la 
+
+####Ejercicio 4
+
+
+```{r}
+ggplot(data= gapminder, aes(x=year,y=gdpPercap, group=country))+geom_line(size = .3) + theme_bw() +facet_wrap(~continent)+scale_color_brewer(palette="Set3")
+```
+
