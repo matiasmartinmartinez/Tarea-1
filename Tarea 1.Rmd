@@ -58,11 +58,9 @@ Se observa la
 ####Ejercicio 5
 ```{r,echo=FALSE}
 library("plotly")
-library(devtools)
-devtools::install_github('hadley/ggplot2')
 ```
 ```{r}
-a=ggplot(data=gapminder,aes(y=pop,colour=continent,group=country))+geom_line(aes(frame=year))+facet_wrap(~continent)
+a=ggplot(data=gapminder,aes(x=year,y=pop,colour=continent,group=country))+geom_line(aes(frame=year))+facet_wrap(~continent)
 ggplotly(a)
 ```
 
