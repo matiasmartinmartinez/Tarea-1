@@ -17,7 +17,7 @@ library(gapminder)
 
 #### Ejercicio 1:
 
-```{r}
+```{r,echo=TRUE}
 ggplot(gapminder,aes(x=lifeExp,y=year,colour=continent))+geom_point()+
   labs(x="Esperanza de vida", y="Año",title="Gráfico de dispersión: Esperanza de vida",caption=paste0(strwrap("Se aprecia un notorio aumento en la esperanza de vida y mediante regresion lineal se denotan los diferentes ritmos correspondientes a cada continente.", 100), sep="", collapse="\n"))+
   coord_cartesian(ylim=c((min(gapminder$year)-5),(max(gapminder$year)+5))) +
@@ -43,25 +43,33 @@ Esto es consecuencia de que no definimos el gráfico de dispersión pero si orde
 Una visualización más limpia puede estar dada mediante el faceteado por continente. 
 
 ```{r, echo = TRUE}
- ggplot(gapminder, aes(x=gdpPercap, y=lifeExp, colour = continent))+geom_point()+facet_wrap(~continent)+labs(x="PBI per cápita",y="Esperanza de vida en años", title="Gráfico de dispersión faceteado por continente.")+theme(plot.title = element_text(hjust = 0.5,colour="indianred4",size=18,face="italic"))
+ ggplot(gapminder, aes(x=gdpPercap, y=lifeExp, colour = continent))+geom_point()+facet_wrap(~continent)+labs(x="PBI per cápita en US$",y="Esperanza de vida en años", title="Gráfico de dispersión faceteado por continente.")+theme(plot.title = element_text(hjust = 0.5,colour="indianred4",size=18,face="italic"))
 ```
 
-Se observa la 
+Todos los continentes presentan un mapeo similar, evidenciando el aumento en la esperanza de vida y en el plano más reciente, representando cierta tendecia a una alta esdperanza de vida (cercana o superior a los 80 años) y un PBI per cápita creciente. Para el continente asiático, se aprecia que ciertos países gozaron de un alto PBI per cápita aún en tiempos donde la esperanza de vida no era significativa.
+
 
 ####Ejercicio 4
 
 
-```{r}
- ggplot(data= gapminder, aes(x=year,y=gdpPercap, group=country,colour=continent))+geom_line(size = .3) + theme_bw() +facet_wrap(~continent)+labs(x="Año",y="PBI per cápita", title="Gráfico de lineas: PBI per cápita en el tiempo")+scale_color_brewer(palette="Dark2")
+```{r,echo=TRUE}
+ ggplot(data= gapminder, aes(x=year,y=gdpPercap, group=country,colour=continent))+geom_line(size = .3) + theme_bw() +facet_wrap(~continent)+labs(x="Año",y="PBI per cápita en US$", title="Gráfico de lineas: PBI per cápita en el tiempo", caption=paste0(strwrap("Es de apreciar la tendencia a crecimiento en el PBI per cápita presente en todos los continentes, no obstante, se distingue el caso de Kuwait y su abrupta caída.
+", 90), sep="", collapse="\n"))+theme(plot.title = element_text(hjust = 0.5,colour="lightgoldenrod4",size=17,face="italic"))+scale_color_brewer(palette="Dark2")
 ```
+
+```{r,echo=TRUE}
+head(arrange(filter(gapminder, year==1957),desc(gdpPercap)),4)
+```
+
 
 ####Ejercicio 5
 ```{r,echo=FALSE}
 library("plotly")
 ```
-```{r}
-a=ggplot(data=gapminder,aes(x=year,y=pop,colour=continent,group=country))+geom_line(aes(frame=year))+facet_wrap(~continent)
-ggplotly(a)
+```{r,echo=TRUE}
+d=ggplot(data=gapminder,aes(x=lifeExp,y=pop,colour=continent,group=country))+geom_point(aes(frame=year))+labs(x="Esperanza de vida",y="Poblacíon",title="Gráfico de dispersíón: Esperanza de vida según población")
+ggplotly(d)
 ```
+
 
 
