@@ -52,6 +52,18 @@ Se observa la
 
 
 ```{r}
-ggplot(data= gapminder, aes(x=year,y=gdpPercap, group=country))+geom_line(size = .3) + theme_bw() +facet_wrap(~continent)+labs(x="Año",y="PBI per cápita", title="Gráfico de lineas: PBI per cápita en el tiempo")+scale_color_brewer(palette="Set3")
+ ggplot(data= gapminder, aes(x=year,y=gdpPercap, group=country,colour=continent))+geom_line(size = .3) + theme_bw() +facet_wrap(~continent)+labs(x="Año",y="PBI per cápita", title="Gráfico de lineas: PBI per cápita en el tiempo")+scale_color_brewer(palette="Dark2")
 ```
+
+####Ejercicio 5
+```{r,echo=FALSE}
+library("plotly")
+library(devtools)
+devtools::install_github('hadley/ggplot2')
+```
+```{r}
+a=ggplot(data=gapminder,aes(y=pop,colour=continent,group=country))+geom_line(aes(frame=year))+facet_wrap(~continent)
+ggplotly(a)
+```
+
 
