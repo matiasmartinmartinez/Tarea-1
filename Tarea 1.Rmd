@@ -2,17 +2,23 @@
 title: "Tarea 1"
 author: "Matías Martínez"
 date: "14 de abril de 2018"
-output: pdf_document
+output:
+  pdf_document: default
+  fig_caption: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, tidy.opts = list(width.cutoff = 50), tidy = TRUE, fig.pos = 'h', out.extra = '')
 ```
 
-```{r,echo=FALSE}
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library(tidyverse)
 library(gapminder)
 ```
+
+\fbox{\begin{minipage}{48em}
+Incluí en el chunck de las libreriías `warning=FALSE, message=FALSE` para que no salgan los mensajes ni los warnings si los hay cuando compilo el archivo. A su vez al inicio tambieén agregué un chunk que ajusta el código y las figuras.
+\end{minipage}}
 
 
 #### Ejercicio 1:
@@ -21,32 +27,44 @@ library(gapminder)
 ggplot(gapminder,aes(x=lifeExp,y=year,colour=continent))+geom_point()+
   labs(x="Esperanza de vida al nacer", y="Año",title="Gráfico de dispersión: Esperanza de vida",caption=paste0(strwrap("Se aprecia un notorio aumento en la esperanza de vida y mediante regresion lineal se denotan los diferentes ritmos correspondientes a cada continente.", 100), sep="", collapse="\n"))+
   coord_cartesian(ylim=c((min(gapminder$year)-5),(max(gapminder$year)+5))) +
-  geom_smooth(method = "lm",se=F,position="identity")+ 
+  geom_smooth(method = "lm",se=F,position="identity")+
   theme(legend.text = element_text(colour="gray20", size=9,face="italic"),plot.title = element_text(hjust = 0.5,colour="slateblue4",size=18,face="italic"),plot.caption=element_text(size=8, hjust=0, margin=margin(t=15)))
 ```
 
-####Ejercicio 2 
+\fbox{\begin{minipage}{48em}
+Los ejes x e y deben ser al revés  pero posiblemente no viste la versión corregida de la tarea.
+Podriías comentar o comparar si hay diferencias entre los continentes, si la asociación es igual o diferente, lineal fuerte o no, hay outliers?
+\end{minipage}}
+####Ejercicio 2
 
 ```{r,echo=T}
 ggplot(gapminder,aes(x=lifeExp,y=year,colour=continent))+
   labs(x="Esperanza de vida", y="Año",title="Gráfico de dispersión: Esperanza de vida",caption=paste0(strwrap("Se aprecia un notorio aumento en la esperanza de vida y mediante regresion lineal se denotan los diferentes ritmos correspondientes a cada continente.", 100), sep="", collapse="\n"))+
   coord_cartesian(ylim=c((min(gapminder$year)-5),(max(gapminder$year)+5))) +
-  geom_smooth(method = "lm",se=F,position="identity")+ 
+  geom_smooth(method = "lm",se=F,position="identity")+
   theme(legend.text = element_text(colour="gray20", size=9,face="italic"),plot.title = element_text(hjust = 0.5,colour="slateblue4",size=18,face="italic"),plot.caption=element_text(size=8, hjust=0, margin=margin(t=15)))
 ```
 
 
 Esto es consecuencia de que no definimos el gráfico de dispersión pero si ordenamos que realice regresión lineal de y sobre x, por lo que mapea su regresión debido a que posee los datos provenientes de nuestro aes().
 
-####Ejercicio 3 
+\fbox{\begin{minipage}{48em}
+Los ejes x e y deben ser al revés. Mirar la solución para entender mejor 
+\end{minipage}}
 
-Una visualización más limpia puede estar dada mediante el faceteado por continente. 
+####Ejercicio 3
+
+Una visualización más limpia puede estar dada mediante el faceteado por continente.
 
 ```{r, echo = TRUE}
  ggplot(gapminder, aes(x=gdpPercap, y=lifeExp, colour = continent))+geom_point()+facet_wrap(~continent)+labs(x="PBI per cápita en US$",y="Esperanza de vida en años", title="Gráfico de dispersión faceteado por continente.")+theme(plot.title = element_text(hjust = 0.5,colour="indianred4",size=17,face="italic"))
 ```
 
 Todos los continentes presentan un mapeo similar, evidenciando el aumento en la esperanza de vida y en el plano más reciente, representando cierta tendecia a una alta esperanza de vida (cercana o superior a los 80 años) y un PBI per cápita creciente. Para el continente asiático, se aprecia que ciertos países gozaron de un alto PBI per cápita aún en tiempos donde la esperanza de vida no era significativa.
+
+\fbox{\begin{minipage}{48em}
+El título de este gráfico puede ser más informativo, dispersión de A vs B. Yo se que digo faceteado pero es Spanglish, podrías poner mejor Gráfico de dispersión de la esperanza de vida al nacer y el PBI per cápita según continente.
+\end{minipage}}
 
 
 ####Ejercicio 4
@@ -57,19 +75,24 @@ Todos los continentes presentan un mapeo similar, evidenciando el aumento en la 
 ", 90), sep="", collapse="\n"))+theme(plot.title = element_text(hjust = 0.5,colour="lightgoldenrod4",size=17,face="italic"))+scale_color_brewer(palette="Dark2")
 ```
 
+\fbox{\begin{minipage}{48em}
+Los colores no son necesarios aquí ni en el anterior ya que la variable continente la estamos considerando en el `facet\_wrap` y no simplifica la visualización. 
+\end{minipage}}
+
 ```{r,echo=TRUE}
 library(knitr)
-kable(head(arrange(filter(gapminder, year==1957),desc(gdpPercap)),4),colnames=c("País","Continente","Año","Esperanza de Vida","Población","PBI per cápita"),format="markdown",caption="Países con mayor PBI per cápita, 1957",, format.args = list( decimal.mark = ","))
+kable(head(arrange(filter(gapminder, year==1957),desc(gdpPercap)),4),colnames=c("País","Continente","Año","Esperanza de Vida","Población","PBI per cápita"),format="markdown",caption="Países con mayor PBI per cápita, 1957", format.args = list( decimal.mark = ","))
 ```
 
 
 ####Ejercicio 5
-```{r,echo=FALSE}
+```{r,echo=FALSE, message=FALSE,warning=FALSE}
 library("plotly")
 ```
+
 ```{r,echo=TRUE}
-d=ggplot(data=gapminder,aes(x=lifeExp,y=pop,colour=continent,group=country))+geom_point(aes(frame=year),size=2.1)+labs(x="Esperanza de vida",y="Poblacíon",title="Gráfico de dispersíón: Esperanza de vida según población")+theme(plot.title = element_text(hjust = 0.5,colour="rosybrown4",size=15,face="italic"))
-ggplotly(d)%>% animation_opts( 800, redraw = FALSE)
+ d=ggplot(data=gapminder,aes(x=lifeExp,y=pop,colour=continent,group=country))+geom_point(aes(frame=year),size=2.1)+labs(x="Esperanza de vida",y="Poblacíon",title="Gráfico de dispersíón: Esperanza de vida según población")+theme(plot.title = element_text(hjust = 0.5,colour="rosybrown4",size=15,face="italic"))
+ ggplotly(d)%>% animation_opts( 800, redraw = FALSE)
 ```
 
 Se aprecia claramente la tendencia al crecimiento tanto de la población como de la epseranza de vida, sin embargo, para una visualización más clara obviaremos los casos atipicos(China e India)
@@ -79,3 +102,19 @@ d=ggplot(data=filter(gapminder,country!="India" & country!="China"),aes(x=lifeEx
 ggplotly(d)
 ```
 
+
+\fbox{\begin{minipage}{48em}
+Buen uso de la visualización interactiva con plotly!
+\end{minipage}}
+
+
+\fbox{\begin{minipage}{48em}
+Buen uso de la visualización interactiva con plotly!
+\end{minipage}}
+
+
+
+
+\fbox{\begin{minipage}{48em}
+Muy buen trabajo! PUNTOS: 100/100
+\end{minipage}}
